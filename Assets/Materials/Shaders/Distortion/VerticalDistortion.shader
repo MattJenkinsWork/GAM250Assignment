@@ -29,7 +29,7 @@
 
 		void vert(inout appdata_base v)
 		{
-
+			v.vertex
 		}
 
 
