@@ -2,8 +2,10 @@
 	Properties {
 		_Color ("Color", Color) = (1,1,1,1)
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
-		_Glossiness ("Smoothness", Range(0,1)) = 0.5
-		_Metallic ("Metallic", Range(0,1)) = 0.0
+		_Glossiness("Smoothness", Range(0,1)) = 0.5
+		_Metallic("Metallic", Range(0,1)) = 0.0
+		_DistortionFactor("DistortionFactor" , Range(-1,1)) = 0
+		_Thing("Thing" , Range(-10,10)) = 0
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -25,11 +27,16 @@
 		half _Glossiness;
 		half _Metallic;
 		fixed4 _Color;
-
+		float _DistortionFactor;
+		float _Thing;
 
 		void vert(inout appdata_base v)
 		{
-			v.vertex
+			//v.vertex.xyz += v.normal * sin(v.vertex.y + _DistortionFactor + _Time.y);
+			
+
+			v.vertex.xyz += v.normal * sin(v.vertex.y * _Time.y * _Thing) * _DistortionFactor; //_Frequency + _Time.y) * _Amplitude;
+
 		}
 
 
