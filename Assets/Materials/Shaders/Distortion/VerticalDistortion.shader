@@ -4,17 +4,16 @@
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
 		_Glossiness("Smoothness", Range(0,1)) = 0.5
 		_Metallic("Metallic", Range(0,1)) = 0.0
-		_DistortionFactor("DistortionFactor" , Range(-1,1)) = 0
-		_Thing("Thing" , Range(-10,10)) = 0
+		_DistortionFactor("DistortionFactor" , Range(0,5)) = 0
+		_HeightOfDistortion("HeightOfDistortion" , Range(0,1)) = 0.1
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
 		LOD 200
 
 		CGPROGRAM
-		// Physically based Standard lighting model, and enable shadows on all light types
-		#pragma surface surf Standard fullforwardshadows addshadow vertex:vert
 
+		#pragma surface surf Standard fullforwardshadows addshadow vertex:vert
 		// Use shader model 3.0 target, to get nicer looking lighting
 		#pragma target 3.0
 
@@ -22,20 +21,39 @@
 
 		struct Input {
 			float2 uv_MainTex;
+			float3 worldPos;
 		};
 
 		half _Glossiness;
 		half _Metallic;
 		fixed4 _Color;
 		float _DistortionFactor;
-		float _Thing;
+		float _HeightOfDistortion;
+		float currentDistortionHeight = 0;
 
 		void vert(inout appdata_base v)
 		{
 			//v.vertex.xyz += v.normal * sin(v.vertex.y + _DistortionFactor + _Time.y);
 			
+			float3 yPos = mul(unity_ObjectToWorld,v.vertex);
 
-			v.vertex.xyz += v.normal * sin(v.vertex.y * _Time.y * _Thing) * _DistortionFactor; //_Frequency + _Time.y) * _Amplitude;
+			currentDistortionHeight = sin(_Time.z);// +yPos; //+ _DistortionFactor);
+
+			if (yPos.y > (currentDistortionHeight) - _HeightOfDistortion  && yPos.y < (currentDistortionHeight) + _HeightOfDistortion)
+			{
+				v.vertex.x += v.normal * _DistortionFactor;
+			}
+			
+			//if (currentWaveHeight > 0)
+			//	currentWaveHeight = 0;
+				
+
+			//verticalPos++;
+
+		    
+			
+
+			//v.vertex.xyz += v.normal * sin(v.vertex.y * _Time.y * _Thing) * _DistortionFactor; //_Frequency + _Time.y) * _Amplitude;
 
 		}
 
