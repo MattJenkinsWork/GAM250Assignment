@@ -6,6 +6,8 @@
 		_Metallic("Metallic", Range(0,1)) = 0.0
 		_DistortionFactor("DistortionFactor" , Range(0,5)) = 0
 		_HeightOfDistortion("HeightOfDistortion" , Range(0,1)) = 0.1
+		_MaxSize("Maximum Size of Model", Range(0, 10)) = 10
+		_MinSize("Minimum Size of Model", Range(0, -10)) = -10
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -30,19 +32,60 @@
 		float _DistortionFactor;
 		float _HeightOfDistortion;
 		float currentDistortionHeight = 0;
+		float _MaxSize;
+		float _MinSize;
+		float _SpeedMult;
+
+		//Maps a range of inputs into another range of inputs
+		float MapValues(float s, float a1, float a2, float b1, float b2) {
+			//current Input, min input, max input, min output, max output 
+			return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
+		}
 
 		void vert(inout appdata_base v)
 		{
+			
+			currentDistortionHeight = MapValues(v.vertex.y, _MinSize, _MaxSize, -1, 1);
+			
+			
+			if (v.vertex.y > _SinTime.z -_HeightOfDistortion && v.vertex.y < _SinTime.z + _HeightOfDistortion)
+			{
+				v.vertex.xz += v.normal * _DistortionFactor;
+			}
+
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			//v.vertex.xyz += v.normal * sin(v.vertex.y + _DistortionFactor + _Time.y);
 			
-			float3 yPos = mul(unity_ObjectToWorld,v.vertex);
+			//yPos = mul(unity_ObjectToWorld, v.vertex.xyz);
 
-			currentDistortionHeight = sin(_Time.z);// +yPos; //+ _DistortionFactor);
+			//currentDistortionHeight = mul(unity_ObjectToWorld, v.vertex) + _SinTime.z; //;_SinTime.w; //+ _DistortionFactor);
 
-			if (yPos.y > (currentDistortionHeight) - _HeightOfDistortion  && yPos.y < (currentDistortionHeight) + _HeightOfDistortion)
-			{
-				v.vertex.x += v.normal * _DistortionFactor;
-			}
+
+			//
+			
+			
 			
 			//if (currentWaveHeight > 0)
 			//	currentWaveHeight = 0;
