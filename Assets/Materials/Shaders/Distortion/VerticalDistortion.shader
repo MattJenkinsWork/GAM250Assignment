@@ -48,7 +48,7 @@
 			currentDistortionHeight = MapValues(v.vertex.y, _MinSize, _MaxSize, -1, 1);
 			
 			
-			if (v.vertex.y > _SinTime.z -_HeightOfDistortion && v.vertex.y < _SinTime.z + _HeightOfDistortion)
+			if (v.vertex.y > _SinTime.w -_HeightOfDistortion && v.vertex.y < _SinTime.w + _HeightOfDistortion)
 			{
 				v.vertex.xz += v.normal * _DistortionFactor;
 			}
