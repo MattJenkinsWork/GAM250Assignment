@@ -9,14 +9,16 @@ public class StandardTromboner : Enemy {
     public float extrudeIncrement;
     public float maxExtrudeValue;
     public float minExtrudeValue;
-    Material mat;
+    Material trumpetMat;
+    Material trombonerMat;
     int direction = 1;
 
 
 
     // Use this for initialization
     void Start () {
-        mat = GetComponentInChildren<Renderer>().material;
+        trumpetMat = GetComponentInChildren<Renderer>().material;
+        trombonerMat = transform.GetChild(1).gameObject.GetComponent<Renderer>().material;
         extrudeValue = minExtrudeValue;
     }
 	
@@ -28,12 +30,16 @@ public class StandardTromboner : Enemy {
         LookAtPlayer();
 
         DoShaderTick();
-	}
+
+        trombonerMat.SetFloat("_DissolveAmount", Map(currentHealth,0,10,1,0));
+
+
+    }
     
     void DoShaderTick()
     {
         extrudeValue += extrudeIncrement * direction;
-        mat.SetFloat("_ExtrusionAmount", extrudeValue);
+        trumpetMat.SetFloat("_ExtrusionAmount", extrudeValue);
 
         if ((direction == 1 && extrudeValue >= maxExtrudeValue) ||
             (direction == -1 && extrudeValue <= minExtrudeValue))

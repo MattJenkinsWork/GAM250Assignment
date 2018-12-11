@@ -58,7 +58,7 @@ Material:
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DistortionAmount: 0.02
+    - _DistortionAmount: 0.12
     - _DistortionFactor: 0.05
     - _DistortionTolerance: 0.1
     - _DstBlend: 0

@@ -1,15 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 public class BigBones : Enemy {
 
     enum AiStates {chase, setup, fire};
     AiStates aiState = new AiStates();
 
     public float stopDistance;
-
-    public UnityEvent bigToot;
 
     public float setupTime;
 
@@ -28,11 +25,6 @@ public class BigBones : Enemy {
 
         floors = GameObject.FindGameObjectsWithTag("Pulsable");
 
-        if (floors == null)
-        {
-            Debug.Log("why");
-        }
-
         for (int i = 0; i < floors.Length; i++)
         {
             floorMats[i] = floors[i].GetComponent<Renderer>().material;
@@ -43,11 +35,7 @@ public class BigBones : Enemy {
     // Use this for initialization
     void Start()
     {
-        
-
         mat = GetComponentInChildren<Renderer>().material;
-        
-
         aiState = AiStates.chase;
     }
 
@@ -66,11 +54,6 @@ public class BigBones : Enemy {
                 FiringState();
                 break;
         }
-
-
-        
-
-        
     }
 
     void DoShaderTick(bool isFiring)
@@ -101,42 +84,28 @@ public class BigBones : Enemy {
     void ChaseState()
     {
      
-        //Clear this up?
-
-        if (((transform.position.x * -1) - (player.transform.position.x * -1)) > stopDistance
-            || ((transform.position.y * -1) - (player.transform.position.y * -1)) > stopDistance
-            || ((transform.position.z * -1) - (player.transform.position.z * -1)) > stopDistance
-            || (transform.position.x - player.transform.position.x) > stopDistance
-            || (transform.position.y - player.transform.position.y) > stopDistance
-            || (transform.position.z - player.transform.position.z) > stopDistance)
+        if (Vector3.Distance(transform.position, player.transform.position) < stopDistance)
+        {
+            aiState = AiStates.setup;
+        }
+        else
         {
             GroundTrack(player.transform.position);
             LookAtPlayer();
         }
-        else
-        {
-            aiState = AiStates.setup;
-        }
-
 
     }
 
     void SetupState()
     {
-
-        //Debug.Log("I'm setting up");
         DoShaderTick(false);
         StartCoroutine(SetupWait());
-
     }
 
     void FiringState()
     {
         LookAtPlayer();
-        //FireCheck();
         DoShaderTick(true);
-        bigToot.Invoke();
-
     }
 
 
@@ -154,7 +123,6 @@ public class BigBones : Enemy {
     {
         yield return new WaitForSeconds(setupTime);
         aiState = AiStates.fire;
-
     }
 
 

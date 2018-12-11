@@ -10,18 +10,12 @@ public class PlayerBehaviour: FireTimer
     public float speed;
     Ray ray;
     RaycastHit hit;
-
+    int frame = 0;
 
 
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-
     }
 
     // Update is called once per frame
@@ -30,9 +24,8 @@ public class PlayerBehaviour: FireTimer
 
         DoMovement();
 
-        LookAtCursor();
-
-
+        CursorFrameCheck();
+        
         if (Input.GetKey(KeyCode.Mouse0))
         {
             FireCheck();
@@ -57,7 +50,16 @@ public class PlayerBehaviour: FireTimer
 
     }
 
+    void CursorFrameCheck()
+    {
+        if (frame % 2 != 0)
+            LookAtCursor();
 
+        frame++;
+
+        if (frame > 10)
+            frame = 0;
+    }
 
 
     void LookAtCursor()
@@ -66,7 +68,7 @@ public class PlayerBehaviour: FireTimer
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.collider.gameObject.tag != "Player")
+            if (hit.collider.gameObject.tag != "Player" && hit.collider.gameObject.tag != "Barrier")
             {
                 Quaternion rotStore = transform.rotation;
                 transform.LookAt(hit.point);
