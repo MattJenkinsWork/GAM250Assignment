@@ -43,15 +43,19 @@
 			if ((brightnessOfPixel - _AmountOfDissolve) < 0) 
 			{
 				o.Albedo = tex2D(_TransTex, IN.uv_TransTex).rgb;
-				//o.Albedo.a = tex2D(_TransTex, IN.uv_TransTex).a;
+				
+
+				if (tex2D(_TransTex, IN.uv_TransTex).a < 0.01)
+					clip(-1);
 			}
 			else 
 			{
 				o.Albedo = tex2D(_MainTex, IN.uv_MainTex).rgb;
+				
 			}
 
 
-			//clip(brightnessOfPixel - _AmountOfDissolve);
+			clip(brightnessOfPixel);
 
 
 			//o.Albedo = tex2D(_MainTex, IN.uv_MainTex).rgb;
