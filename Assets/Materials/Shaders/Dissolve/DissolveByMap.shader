@@ -3,6 +3,7 @@
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
 		_BumpMap("Bumpmap", 2D) = "bump" {}
 		_NoiseMap ("Noise Map", 2D) = "white" {}
+
 		_AmountOfDissolve("Amount of dissolve", Range(0,1)) = 0
 	
 	}
@@ -32,11 +33,13 @@
 		void surf (Input IN, inout SurfaceOutputStandard o) {
 
 			float brightnessOfPixel = 0;
-
+			
+			//Get the brightness of the current pixel by multiplying the r,g and b values of the noise map by predefined values
 			brightnessOfPixel += tex2D(_NoiseMap, IN.uv_NoiseMap).r * 0.375;
 			brightnessOfPixel += tex2D(_NoiseMap, IN.uv_NoiseMap).g * 0.5;
 			brightnessOfPixel += tex2D(_NoiseMap, IN.uv_NoiseMap).b * 0.125;
-
+			
+			//If the brightness of this pixel isn't more than the dissolve threshold we clip it
 			clip((brightnessOfPixel - _AmountOfDissolve));
 
 

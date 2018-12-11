@@ -4,8 +4,10 @@
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
 		_Glossiness("Smoothness", Range(0,1)) = 0.5
 		_Metallic("Metallic", Range(0,1)) = 0.0
-		_DistortionFactor("DistortionFactor" , Range(0,5)) = 0
-		_HeightOfDistortion("HeightOfDistortion" , Range(0,1)) = 0.1
+		
+		
+		_DistortionAmount("Distortion Amount" , Range(0,5)) = 0
+		_DistortionTolerance("Height Of Distortion" , Range(0,1)) = 0.1
 		_MaxSize("Maximum Size of Model", Range(0, 10)) = 10
 		_MinSize("Minimum Size of Model", Range(0, -10)) = -10
 	}
@@ -29,12 +31,11 @@
 		half _Glossiness;
 		half _Metallic;
 		fixed4 _Color;
-		float _DistortionFactor;
-		float _HeightOfDistortion;
-		float currentDistortionHeight = 0;
+		float _DistortionAmount;
+		float _DistortionTolerance;
 		float _MaxSize;
 		float _MinSize;
-		float _SpeedMult;
+
 
 		//Maps a range of inputs into another range of inputs
 		float MapValues(float s, float a1, float a2, float b1, float b2) {
@@ -44,59 +45,16 @@
 
 		void vert(inout appdata_base v)
 		{
+			//Inputs the current y value of our vertex into the value mapper to get the currentDistortionHeight relative to 0-1 and the defined max and min model sizes
+			float currentDistortionHeight = MapValues(v.vertex.y, _MinSize, _MaxSize, -1, 1);
 			
-			currentDistortionHeight = MapValues(v.vertex.y, _MinSize, _MaxSize, -1, 1);
-			
-			
-			if (v.vertex.y > _SinTime.w -_HeightOfDistortion && v.vertex.y < _SinTime.w + _HeightOfDistortion)
+			//If the y value is  within the current sintime -/+ the tolerance, we can move the current vertex along it's normals by the DistortionFactor 
+			if (v.vertex.y > _SinTime.w -_DistortionTolerance 
+				&& v.vertex.y < _SinTime.w + _DistortionTolerance)
 			{
-				v.vertex.xz += v.normal * _DistortionFactor;
+				v.vertex.xz += v.normal * _DistortionAmount;
 			}
 
-			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			//v.vertex.xyz += v.normal * sin(v.vertex.y + _DistortionFactor + _Time.y);
-			
-			//yPos = mul(unity_ObjectToWorld, v.vertex.xyz);
-
-			//currentDistortionHeight = mul(unity_ObjectToWorld, v.vertex) + _SinTime.z; //;_SinTime.w; //+ _DistortionFactor);
-
-
-			//
-			
-			
-			
-			//if (currentWaveHeight > 0)
-			//	currentWaveHeight = 0;
-				
-
-			//verticalPos++;
-
-		    
-			
-
-			//v.vertex.xyz += v.normal * sin(v.vertex.y * _Time.y * _Thing) * _DistortionFactor; //_Frequency + _Time.y) * _Amplitude;
 
 		}
 
