@@ -20,8 +20,7 @@ public abstract class Enemy : FireTimer {
     [HideInInspector]
     public GameManager gameManager;
 
-    [HideInInspector]
-    public Rigidbody rigid;
+    Material trombonerMat;
 
     private void Awake()
     {
@@ -29,6 +28,8 @@ public abstract class Enemy : FireTimer {
         pManager = player.GetComponent<PlayerManager>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         currentHealth = maxHealth;
+        trombonerMat = transform.GetChild(1).gameObject.GetComponent<Renderer>().material;
+
     }
 
     //Kills this enemy. Optionally has different modes for killing the enemy for extra graphical fanciness
@@ -90,7 +91,12 @@ public abstract class Enemy : FireTimer {
 
     }
 
+    public void UpdateHealthShader()
+    {
+        trombonerMat.SetFloat("_AmountOfDissolve", Map(currentHealth, 0, 10, 1, 0));
+    }
 
+    //Maps a a value to another value within a range
     public float Map(float value, float fromSource, float toSource, float fromTarget, float toTarget)
     {
         return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;

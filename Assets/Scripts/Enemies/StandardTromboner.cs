@@ -10,7 +10,6 @@ public class StandardTromboner : Enemy {
     public float maxExtrudeValue;
     public float minExtrudeValue;
     Material trumpetMat;
-    Material trombonerMat;
     int direction = 1;
 
 
@@ -18,7 +17,7 @@ public class StandardTromboner : Enemy {
     // Use this for initialization
     void Start () {
         trumpetMat = GetComponentInChildren<Renderer>().material;
-        trombonerMat = transform.GetChild(1).gameObject.GetComponent<Renderer>().material;
+       
         extrudeValue = minExtrudeValue;
     }
 	
@@ -31,9 +30,7 @@ public class StandardTromboner : Enemy {
 
         DoShaderTick();
 
-        trombonerMat.SetFloat("_DissolveAmount", Map(currentHealth,0,10,1,0));
-
-
+        UpdateHealthShader();
     }
     
     void DoShaderTick()

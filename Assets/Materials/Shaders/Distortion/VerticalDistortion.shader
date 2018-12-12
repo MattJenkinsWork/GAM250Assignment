@@ -54,8 +54,6 @@
 			{
 				v.vertex.xz += v.normal * _DistortionAmount;
 			}
-
-
 		}
 
 

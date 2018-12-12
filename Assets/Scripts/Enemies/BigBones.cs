@@ -19,8 +19,13 @@ public class BigBones : Enemy {
     Material mat;
     int direction = 1;
 
-    private void Awake()
+
+    // Use this for initialization
+    void Start()
     {
+        mat = GetComponentInChildren<Renderer>().material;
+        aiState = AiStates.chase;
+
         GameObject[] floors;
 
         floors = GameObject.FindGameObjectsWithTag("Pulsable");
@@ -31,17 +36,11 @@ public class BigBones : Enemy {
         }
     }
 
-
-    // Use this for initialization
-    void Start()
-    {
-        mat = GetComponentInChildren<Renderer>().material;
-        aiState = AiStates.chase;
-    }
-
     // Update is called once per frame
     void Update()
     {
+        UpdateHealthShader();
+
         switch ((int)aiState)
         {
             case 0:
@@ -54,6 +53,8 @@ public class BigBones : Enemy {
                 FiringState();
                 break;
         }
+
+        
     }
 
     void DoShaderTick(bool isFiring)
