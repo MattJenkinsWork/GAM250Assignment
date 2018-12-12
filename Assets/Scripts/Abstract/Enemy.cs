@@ -93,10 +93,10 @@ public abstract class Enemy : FireTimer {
 
     public void UpdateHealthShader()
     {
-        trombonerMat.SetFloat("_AmountOfDissolve", Map(currentHealth, 0, 10, 1, 0));
+        trombonerMat.SetFloat("_AmountOfDissolve", Map(currentHealth, 0, maxHealth, 1, 0));
     }
 
-    //Maps a a value to another value within a range
+    //Maps a a value to another value within a range (NOT MY CODE)
     public float Map(float value, float fromSource, float toSource, float fromTarget, float toTarget)
     {
         return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
