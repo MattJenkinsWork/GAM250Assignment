@@ -1603,19 +1603,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4391226190838694, guid: 920ad3f8a9e10c74680bfb9b42e7a952, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.0047993883
+      value: -0.0065872883
       objectReference: {fileID: 0}
     - target: {fileID: 4391226190838694, guid: 920ad3f8a9e10c74680bfb9b42e7a952, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.9999311
+      value: -0.98473096
       objectReference: {fileID: 0}
     - target: {fileID: 4391226190838694, guid: 920ad3f8a9e10c74680bfb9b42e7a952, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0.010716003
+      value: 0.009719798
       objectReference: {fileID: 0}
     - target: {fileID: 4391226190838694, guid: 920ad3f8a9e10c74680bfb9b42e7a952, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.000051433806
+      value: -0.17368674
       objectReference: {fileID: 0}
     - target: {fileID: 4391226190838694, guid: 920ad3f8a9e10c74680bfb9b42e7a952, type: 2}
       propertyPath: m_RootOrder
@@ -1623,7 +1623,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4391226190838694, guid: 920ad3f8a9e10c74680bfb9b42e7a952, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: -200
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114108014925696012, guid: 920ad3f8a9e10c74680bfb9b42e7a952, type: 2}
