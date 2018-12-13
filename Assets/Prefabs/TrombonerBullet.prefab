@@ -65,7 +65,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4583856207307584}
   - component: {fileID: 54733095368285376}
-  - component: {fileID: 114790987313713632}
+  - component: {fileID: 65030868498533032}
+  - component: {fileID: 114690307911787954}
   m_Layer: 0
   m_Name: TrombonerBullet
   m_TagString: Untagged
@@ -257,7 +258,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1231617020782816}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.46360397, y: 0.5, z: -24.976168}
+  m_LocalPosition: {x: -0.46360397, y: 8.64, z: -24.976168}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4727536204170138}
@@ -347,7 +348,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!114 &114790987313713632
+--- !u!65 &65030868498533032
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1231617020782816}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.43033966, y: 0.5065417, z: 0.1330262}
+  m_Center: {x: -0.004640132, y: 0.24672914, z: 0.013748996}
+--- !u!114 &114690307911787954
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -355,7 +368,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1231617020782816}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a15aec7575817bb4a947a05e625ed3fe, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d386ec0af2629544bb8b4eb2a1c67a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0

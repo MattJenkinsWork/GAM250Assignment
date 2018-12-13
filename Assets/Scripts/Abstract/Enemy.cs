@@ -32,14 +32,9 @@ public abstract class Enemy : FireTimer {
 
     }
 
-    //Kills this enemy. Optionally has different modes for killing the enemy for extra graphical fanciness
+    //Kills this enemy
     public void EnemyDead()
     {
-
-        Debug.Log(this.name + " died!");
-
-        gameManager.RemoveEnemyList(this.gameObject);
-
         DoDeathEffects();
 
         Destroy(this.gameObject);
@@ -81,8 +76,7 @@ public abstract class Enemy : FireTimer {
 
     //Takes damage amount from health, trigger death if it's enough to kill
     public void TakeDamage(int amount)
-    {
-        Debug.Log(name + " took damage!");
+    { 
 
         currentHealth -= amount;
 

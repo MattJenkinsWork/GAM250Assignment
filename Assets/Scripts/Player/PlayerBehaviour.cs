@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerBehaviour: FireTimer
@@ -11,11 +13,18 @@ public class PlayerBehaviour: FireTimer
     Ray ray;
     RaycastHit hit;
     int frame = 0;
+    public Text healthNum;
+    public GameObject youLose;
+
+    int currentHealth;
+    public int maxHealth = 10;
 
 
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+        currentHealth = maxHealth;
+        TakeDamage(0);
     }
 
     // Update is called once per frame
@@ -37,16 +46,23 @@ public class PlayerBehaviour: FireTimer
     void DoMovement()
     {
         if (Input.GetKey(KeyCode.W))
-            controller.Move(new Vector3(0, 0, 1) * Time.deltaTime * speed);
+            controller.Move(Vector3.forward * Time.deltaTime * speed);
 
         if (Input.GetKey(KeyCode.A))
-            controller.Move(new Vector3(-1, 0, 0) * Time.deltaTime * speed);
+            controller.Move(Vector3.left * Time.deltaTime * speed);
 
         if (Input.GetKey(KeyCode.S))
-            controller.Move(new Vector3(0, 0, -1) * Time.deltaTime * speed);
+            controller.Move(Vector3.back * Time.deltaTime * speed);
 
         if (Input.GetKey(KeyCode.D))
-            controller.Move(new Vector3(1, 0, 0) * Time.deltaTime * speed);
+            controller.Move(Vector3.right * Time.deltaTime * speed);
+
+        if (Input.GetKey(KeyCode.R))
+        {
+            Time.timeScale = 1;
+            SceneManager.LoadScene(2);
+        }
+            
 
     }
 
@@ -77,5 +93,23 @@ public class PlayerBehaviour: FireTimer
 
         }
     }
+
+    public void TakeDamage(int amount)
+    {
+
+        currentHealth -= amount;
+
+        if (currentHealth <= 0)
+        {
+            youLose.SetActive(true);
+            Time.timeScale = 0;
+        }
+            
+
+        healthNum.text = currentHealth.ToString();
+
+    }
+
+
 
 }  
