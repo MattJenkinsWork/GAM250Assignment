@@ -361,6 +361,7 @@ GameObject:
   - component: {fileID: 87795996}
   - component: {fileID: 87795995}
   - component: {fileID: 87795994}
+  - component: {fileID: 87795998}
   m_Layer: 0
   m_Name: TVScreen (2)
   m_TagString: Untagged
@@ -455,6 +456,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 87795992}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &87795998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 87795992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 040a40c5fe4c30f42a38b858ceee14b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountOfBob: 0.001
 --- !u!1 &207993756
 GameObject:
   m_ObjectHideFlags: 0
@@ -1630,6 +1643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 040a40c5fe4c30f42a38b858ceee14b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amountOfBob: 0.001
 --- !u!1 &732643665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1639,6 +1653,7 @@ GameObject:
   m_Component:
   - component: {fileID: 732643666}
   - component: {fileID: 732643667}
+  - component: {fileID: 732643668}
   m_Layer: 0
   m_Name: Point Light (2)
   m_TagString: Untagged
@@ -1696,6 +1711,18 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &732643668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 732643665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 040a40c5fe4c30f42a38b858ceee14b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountOfBob: 0.001
 --- !u!1 &741922641
 GameObject:
   m_ObjectHideFlags: 0
@@ -1793,6 +1820,7 @@ GameObject:
   - component: {fileID: 776082374}
   - component: {fileID: 776082373}
   - component: {fileID: 776082372}
+  - component: {fileID: 776082376}
   m_Layer: 0
   m_Name: TVScreen (1)
   m_TagString: Untagged
@@ -1887,6 +1915,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 776082370}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &776082376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 776082370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 040a40c5fe4c30f42a38b858ceee14b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountOfBob: 0.001
 --- !u!1 &802372069
 GameObject:
   m_ObjectHideFlags: 0
@@ -2249,6 +2289,7 @@ GameObject:
   - component: {fileID: 842379821}
   - component: {fileID: 842379820}
   - component: {fileID: 842379819}
+  - component: {fileID: 842379823}
   m_Layer: 0
   m_Name: TVScreen (3)
   m_TagString: Untagged
@@ -2342,6 +2383,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 842379817}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &842379823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 842379817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 040a40c5fe4c30f42a38b858ceee14b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountOfBob: 0.001
 --- !u!1 &889127779
 GameObject:
   m_ObjectHideFlags: 0
@@ -2751,12 +2804,11 @@ MonoBehaviour:
   - '???: ......'
   - 'News Anchor : "Reports confirm that the Tromboners have taken the city''s streets
     and filled them with dangerous amounts of brass"'
-  - 'News Anchor : "It is recommended you wear thick headphones and arm yourself using
-    firearms if you intend to survive the night"'
+  - 'News Anchor : "It is recommended you wear thick headphones and arm yourself if
+    you intend to survive the night"'
   - 'News Anchor : "If someone could defeat their leader, the "Tuboner" we may yet
-    be saved from this chaotic cacaphony"'
-  - 'News Anchor : "But who is brave enough to do that?"'
-  - 'You : "Me"'
+    be saved from this brass-based apocalypse"'
+  - 'News Anchor : "But who is brave enough to do such a thing?"'
   textbox: {fileID: 927993470}
   textboxImage: {fileID: 1650825945}
 --- !u!4 &1321965374
@@ -3322,6 +3374,7 @@ GameObject:
   - component: {fileID: 2041425611}
   - component: {fileID: 2041425610}
   - component: {fileID: 2041425609}
+  - component: {fileID: 2041425613}
   m_Layer: 0
   m_Name: TVScreen
   m_TagString: Untagged
@@ -3416,6 +3469,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2041425607}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2041425613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2041425607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 040a40c5fe4c30f42a38b858ceee14b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountOfBob: 0.001
 --- !u!1 &2144384927
 GameObject:
   m_ObjectHideFlags: 0

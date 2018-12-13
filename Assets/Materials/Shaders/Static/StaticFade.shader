@@ -32,7 +32,7 @@
 		  {
 			  if (_AmountOfFade < 9) 
 			  {
-				  float2 input = float2 (IN.worldPos.x, IN.worldPos.z);
+				  float2 input = float2 (IN.worldPos.x, IN.worldPos.y);
 				  clip(frac(rand(input)) *  _AmountOfFade - 0.8);
 			  }
 			 
