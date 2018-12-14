@@ -9,6 +9,8 @@ public abstract class Projectile : MonoBehaviour {
     public float bendAmount;
     public int damage;
 
+    public ObjectPoolManager pool;
+
     public float lifetime;
 
     [HideInInspector]

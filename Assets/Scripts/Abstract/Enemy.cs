@@ -27,6 +27,7 @@ public abstract class Enemy : FireTimer {
         player = GameObject.FindGameObjectWithTag("Player");
         pManager = player.GetComponent<PlayerManager>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+
         currentHealth = maxHealth;
         trombonerMat = transform.GetChild(1).gameObject.GetComponent<Renderer>().material;
 
@@ -45,7 +46,7 @@ public abstract class Enemy : FireTimer {
 
     
 
-    //This is an AI mode. Should be triggered via a state machine in the main loop of an enemy
+    //This is an AI mode that moves the enemy horizontally towards the given targetpos
     public void GroundTrack(Vector3 targetPos)
     {
         float yStore;

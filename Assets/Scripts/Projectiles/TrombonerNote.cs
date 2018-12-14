@@ -18,7 +18,17 @@ public class TrombonerNote : Projectile{
 
     public override void Destructed()
     {
-        Destroy(this.gameObject);
+
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        pool.ReturnObject(gameObject);
+
+
+
+       // if (GameObject.FindGameObjectWithTag("GameManager").GetComponent<ObjectPoolManager>().CheckForCorrectPool(gameObject))
+       // {
+       //     GameObject.FindGameObjectWithTag("GameManager").GetComponent<ObjectPoolManager>().ReturnObject(this.gameObject);
+       // }
+        
     }
 
     private void OnTriggerEnter(Collider other)

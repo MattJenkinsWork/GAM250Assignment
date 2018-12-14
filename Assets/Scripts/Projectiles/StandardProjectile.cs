@@ -18,7 +18,8 @@ public class StandardProjectile : Projectile {
 
     public override void Destructed()
     {
-       Destroy(this.gameObject);
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        pool.ReturnObject(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)

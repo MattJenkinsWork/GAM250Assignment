@@ -18,8 +18,17 @@ public abstract class FireTimer : MonoBehaviour{
     public Vector3 targetOffset;
     public Vector3 fireOffset;
 
+    [HideInInspector]
+    public ObjectPoolManager pool;
+
+   
+
     public void FireCheck()
     {
+        if (pool == null)
+            pool = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ObjectPoolManager>();
+
+
         if (Time.time < nextFire)
             return;
 
@@ -31,14 +40,16 @@ public abstract class FireTimer : MonoBehaviour{
     //OBJECT POOL MY DUDE
     public void Fire(GameObject projectile, Vector3 fireDirection, GameObject firedFrom)
     {
-        //Do rotation later if required
+        pool = FindPool();
+
+
+
         GameObject firedProjectile;
 
-        firedProjectile = Instantiate(projectile, transform.position + transform.forward + fireOffset, Quaternion.identity);
-
-
+        firedProjectile = pool.RequestObject(transform.position + transform.forward + fireOffset); //Instantiate(projectile, transform.position + transform.forward + fireOffset, Quaternion.identity);
 
         Projectile proj = firedProjectile.GetComponent<Projectile>();
+        proj.pool = pool;
         proj.lifetime = projectileLifetime;
         proj.speed = projectileSpeed;
         proj.damage = damage;
@@ -49,5 +60,26 @@ public abstract class FireTimer : MonoBehaviour{
 
     }
 
+    ObjectPoolManager FindPool()
+    {
+        ObjectPoolManager[] poolManagers = GameObject.FindGameObjectWithTag("GameManager").GetComponents<ObjectPoolManager>();
 
+
+        for (int i = 0; i < poolManagers.Length; i++)
+        {
+            if (poolManagers[i].CheckForCorrectPool(projectilePrefab))
+            {
+                
+                return poolManagers[i];
+
+            }
+        }
+
+
+        return null;
+
+    }
+
+
+   
 }
