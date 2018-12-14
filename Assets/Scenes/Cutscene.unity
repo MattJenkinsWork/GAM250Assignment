@@ -2533,7 +2533,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.45881972, y: 0.15465632}
   m_AnchorMax: {x: 0.45881972, y: 0.15465632}
-  m_AnchoredPosition: {x: 2.5, y: -123}
+  m_AnchoredPosition: {x: 2.5, y: -108}
   m_SizeDelta: {x: 400, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1056948008
@@ -2800,7 +2800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-  - '*Static Noises* [Press any Key]]'
+  - '*Static Noises* [Press any Key]'
   - '???: ......'
   - 'News Anchor : "Reports confirm that the Tromboners have taken the city''s streets
     and filled them with dangerous amounts of brass"'
@@ -2809,6 +2809,7 @@ MonoBehaviour:
   - 'News Anchor : "If someone could defeat their leader, the "Tuboner" we may yet
     be saved from this brass-based apocalypse"'
   - 'News Anchor : "But who is brave enough to do such a thing?"'
+  - 'News Anchor : "They''d have to use WASD to move and left click to shoot!"'
   textbox: {fileID: 927993470}
   textboxImage: {fileID: 1650825945}
 --- !u!4 &1321965374
@@ -2969,7 +2970,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1650825946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3012,14 +3013,14 @@ RectTransform:
   m_GameObject: {fileID: 1650825945}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 1.5, z: 1}
+  m_LocalScale: {x: 5, y: 1.5993106, z: 1}
   m_Children: []
   m_Father: {fileID: 839653415}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -47.840027, y: 93.5}
+  m_AnchorMin: {x: 0.43545905, y: 0.23720293}
+  m_AnchorMax: {x: 0.43545905, y: 0.23720293}
+  m_AnchoredPosition: {x: 51, y: -79}
   m_SizeDelta: {x: 100, y: 99}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1677445858
