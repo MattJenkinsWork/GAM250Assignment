@@ -14,21 +14,21 @@ public abstract class Enemy : FireTimer {
     [HideInInspector]
     public GameObject player;
 
-    [HideInInspector]
-    public PlayerManager pManager;
 
-    [HideInInspector]
-    public GameManager gameManager;
 
+    //The current material for the skeleton
     Material trombonerMat;
 
     private void Awake()
     {
+        //Getting references to objects in the scene
         player = GameObject.FindGameObjectWithTag("Player");
-        pManager = player.GetComponent<PlayerManager>();
-        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
+
+        //Setting up health
         currentHealth = maxHealth;
+
+        //Finding the material
         trombonerMat = transform.GetChild(1).gameObject.GetComponent<Renderer>().material;
 
     }
@@ -86,6 +86,7 @@ public abstract class Enemy : FireTimer {
 
     }
 
+    //Updates the dissolve shader for the tromboners according to the health amount
     public void UpdateHealthShader()
     {
         trombonerMat.SetFloat("_AmountOfDissolve", Map(currentHealth, 0, maxHealth, 1, 0));

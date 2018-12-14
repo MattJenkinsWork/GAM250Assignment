@@ -7,8 +7,6 @@ public class CameraFollow : MonoBehaviour {
     float playerX;
     float playerZ;
 
-    float resultingMovement;
-
     GameObject player;
 
     private void Awake()
@@ -27,24 +25,24 @@ public class CameraFollow : MonoBehaviour {
 		
 
 
-
+        //If the player has moved, move the camera
         if (playerX != player.transform.position.x || playerZ != player.transform.position.z)
         {
-            resultingMovement = playerX - player.transform.position.x;
-
+            //Worke out the resulting x movement
+            float resultingMovement = playerX - player.transform.position.x;
             transform.Translate(new Vector3(-resultingMovement, 0, 0));
 
+            //Work out the resulting z movement
             resultingMovement = playerZ - player.transform.position.z;
-
             transform.Translate(new Vector3(0, 0, -resultingMovement));
 
-            playerX = player.transform.position.x;
-            playerZ = player.transform.position.z;
+           
         }
 
 
+        playerX = player.transform.position.x;
+        playerZ = player.transform.position.z;
 
-          
 
-	}
+    }
 }

@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour {
 
+    //Used to manage all of the menus in the game
+    //Buttons are assigned to all these functions
 
     public void StartGame(bool doCutscene)
     {

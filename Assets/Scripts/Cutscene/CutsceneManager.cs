@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class CutsceneManager : MonoBehaviour {
 
+    //All of the cutscene dialogue
     public string[] dialogue;
 
     int currentLine = 0;
@@ -15,7 +16,7 @@ public class CutsceneManager : MonoBehaviour {
 
     private void Start()
     {
-        NextLine();
+        UpdateLine();
     }
 
 
@@ -26,28 +27,22 @@ public class CutsceneManager : MonoBehaviour {
         {
             currentLine++;
 
+            //Set the image to active if the current line isn't the first one
             textboxImage.SetActive(currentLine >= 1);
-
-            //if (currentline >= 1)
-            //    textboximage.setactive(true);
-            //else
-            //    textboximage.setactive(false);
-
 
             if (currentLine >= dialogue.Length)
                 SceneManager.LoadScene(2);
             else
-                NextLine();
+                UpdateLine();
         }
 
 
 	}
     
-    void NextLine()
+    
+    void UpdateLine()
     {
-        
         textbox.text = dialogue[currentLine];
-
     }
 
 }

@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class ShaderShowcase : MonoBehaviour {
 
+    [Header("Spin settings")]
+    public float spinAmount = 1;
 
+    [Header("Parameter settings")]
     public float currentValue;
-    public float maxValue;
     public float minValue;
+    public float maxValue;
     public float increment;
     public string parameterName;
-    public float spinAmount = 1;
     public bool doShader;
     public bool getMatFromChild;
 
@@ -20,6 +22,9 @@ public class ShaderShowcase : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        //Get either this material or the child's material
+        //This allows the tromboners in the shader showcase to have parent objects
         if (GetComponent<Renderer>() && !getMatFromChild)
         {
             mat = GetComponent<Renderer>().material;
@@ -33,17 +38,18 @@ public class ShaderShowcase : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        //Increment or decrement the shader value
         if (doShader)
         {
             currentValue += increment * direction;
             mat.SetFloat(parameterName, currentValue);
+
+            if ((direction == 1 && currentValue >= maxValue) ||
+            (direction == -1 && currentValue <= minValue))
+                direction *= -1;
         }
         
-
-        if ((direction == 1 && currentValue >= maxValue) ||
-            (direction == -1 && currentValue <= minValue))
-            direction *= -1;
-
+        //Rotate whatever this is applied to
         transform.Rotate(Vector3.up * spinAmount);
 
     }

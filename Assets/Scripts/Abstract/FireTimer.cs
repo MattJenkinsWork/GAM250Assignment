@@ -10,19 +10,16 @@ public abstract class FireTimer : MonoBehaviour{
     public int damage;
     public GameObject projectilePrefab;
     public int projectileLifetime;
-
-    public float nextFire = -1;
-
-    Rigidbody projRigid;
-
     public Vector3 targetOffset;
     public Vector3 fireOffset;
 
-    [HideInInspector]
-    public ObjectPoolManager pool;
+    //The time when firing is possible
+    float nextFire = -1;
+
+    ObjectPoolManager pool;
 
    
-
+    //Check if the object can fire
     public void FireCheck()
     {
         if (pool == null)
@@ -36,34 +33,29 @@ public abstract class FireTimer : MonoBehaviour{
         nextFire = Time.time + rateOfFire;
     }
 
-    //For now the projectile is instantiated but ideally this will swap to an object pool system eventually
-    //OBJECT POOL MY DUDE
+    //Finds a projectile in the pool, gives it velocity and sets it up according to the parameters on this object
     public void Fire(GameObject projectile, Vector3 fireDirection, GameObject firedFrom)
     {
+        //Find the pool for this object
         pool = FindPool();
 
+        Projectile proj = pool.RequestObject(transform.position + transform.forward + fireOffset).GetComponent<Projectile>();
 
-
-        GameObject firedProjectile;
-
-        firedProjectile = pool.RequestObject(transform.position + transform.forward + fireOffset); //Instantiate(projectile, transform.position + transform.forward + fireOffset, Quaternion.identity);
-
-        Projectile proj = firedProjectile.GetComponent<Projectile>();
         proj.pool = pool;
         proj.lifetime = projectileLifetime;
         proj.speed = projectileSpeed;
         proj.damage = damage;
         proj.firedFrom = firedFrom;
 
-        projRigid = proj.GetComponent<Rigidbody>();
+        Rigidbody projRigid = proj.GetComponent<Rigidbody>();
         projRigid.AddForce((transform.forward + targetOffset) * projectileSpeed);
 
     }
 
+    //Checks through all of the pools to find the correct one for this object
     ObjectPoolManager FindPool()
     {
         ObjectPoolManager[] poolManagers = GameObject.FindGameObjectWithTag("GameManager").GetComponents<ObjectPoolManager>();
-
 
         for (int i = 0; i < poolManagers.Length; i++)
         {

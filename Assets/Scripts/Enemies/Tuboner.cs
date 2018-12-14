@@ -1,13 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class BigBones : Enemy {
+public class Tuboner : Enemy {
 
-    enum AiStates {chase, setup, fire};
-    AiStates aiState = new AiStates();
+    //Different ai states in an enum
+    public enum AiStates {chase, setup, fire};
 
+    [Header("AI State settings")]
+    public AiStates aiState = new AiStates();
+
+    //How far does the enemy have to be away before stopping
     public float stopDistance;
 
+    //How long does the enemy have to wait before it fires
     public float setupTime;
 
     [Header("Shader Values")]
@@ -15,7 +20,7 @@ public class BigBones : Enemy {
     public float extrudeIncrement;
     public float maxExtrudeValue;
     public float minExtrudeValue;
-    Material[] floorMats = new Material[5];
+    Material[] pulsableMats = new Material[5];
     Material mat;
     int direction = 1;
 
@@ -23,16 +28,18 @@ public class BigBones : Enemy {
     // Use this for initialization
     void Start()
     {
-        mat = GetComponentInChildren<Renderer>().material;
+        //Setting the default state to chase
         aiState = AiStates.chase;
+  
+        mat = GetComponentInChildren<Renderer>().material;
 
-        GameObject[] floors;
-
-        floors = GameObject.FindGameObjectsWithTag("Pulsable");
-
-        for (int i = 0; i < floors.Length; i++)
+        //Getting the materials for all pulsable objects
+        GameObject[] pulsables;
+        pulsables = GameObject.FindGameObjectsWithTag("Pulsable");
+        
+        for (int i = 0; i < pulsables.Length; i++)
         {
-            floorMats[i] = floors[i].GetComponent<Renderer>().material;
+            pulsableMats[i] = pulsables[i].GetComponent<Renderer>().material;
         }
     }
 
@@ -41,6 +48,7 @@ public class BigBones : Enemy {
     {
         UpdateHealthShader();
 
+        //State machine commences
         switch ((int)aiState)
         {
             case 0:
@@ -57,24 +65,28 @@ public class BigBones : Enemy {
         
     }
 
+
+    //Makes the shader for the trumpet increase and decrease according to public variables
     void DoShaderTick(bool isFiring)
     {
         extrudeValue += extrudeIncrement * direction;
         mat.SetFloat("_ExtrusionAmount", extrudeValue);
 
+        //If firing, pulse the pulseables
         if (isFiring)
         {
-            foreach (Material mat in floorMats)
+            foreach (Material mat in pulsableMats)
             {
                 mat.SetFloat("_ExtrusionAmount", extrudeValue);
             }
         }
         
-
+        //flip the extrude direction if it reaches max or min
         if ((direction == 1 && extrudeValue >= maxExtrudeValue) ||
             (direction == -1 && extrudeValue <= minExtrudeValue))
             direction *= -1;
 
+        //If firing is enabled, and we're at max extrusion, we can fire
        if (extrudeValue >= maxExtrudeValue && isFiring)
        {
             Fire(projectilePrefab, transform.forward, gameObject);
@@ -82,6 +94,7 @@ public class BigBones : Enemy {
 
     }
 
+    //Chase the player until within range
     void ChaseState()
     {
      
@@ -97,29 +110,32 @@ public class BigBones : Enemy {
 
     }
 
+    //Wait for a second and pulse the tuba a bit
     void SetupState()
     {
         DoShaderTick(false);
         StartCoroutine(SetupWait());
     }
 
+    //Enable firing on the shader tick and look at the player
     void FiringState()
     {
         LookAtPlayer();
         DoShaderTick(true);
     }
 
-
+    //Set all of the pulsables to 1
     public override void DoDeathEffects()
     {
         mat.SetFloat("_ExtrusionAmount", 1);
 
-        foreach (Material mat in floorMats)
+        foreach (Material mat in pulsableMats)
         {
             mat.SetFloat("_ExtrusionAmount", 1);
         }
     }
 
+    //Wait for setup time then enter the fire state
     IEnumerator SetupWait()
     {
         yield return new WaitForSeconds(setupTime);

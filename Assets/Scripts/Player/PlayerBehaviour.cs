@@ -7,24 +7,31 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerBehaviour: FireTimer
 {
+    public float speed;
 
     CharacterController controller;
-    public float speed;
     Ray ray;
     RaycastHit hit;
-    int frame = 0;
-    public Text healthNum;
-    public GameObject youLose;
 
+    public Text healthNumText;
+    public GameObject youLoseText;
+
+    int frame = 0;
+
+    //Health variables
     int currentHealth;
-    public int maxHealth = 10;
+    public int maxHealth;
 
 
     private void Awake()
-    {
+    {        
         controller = GetComponent<CharacterController>();
+
+        //Setting up health and updating the UI using TakeDamage()
         currentHealth = maxHealth;
         TakeDamage(0);
+        
+        
     }
 
     // Update is called once per frame
@@ -45,6 +52,7 @@ public class PlayerBehaviour: FireTimer
 
     void DoMovement()
     {
+        //Move the character controller if WASD is pressed
         if (Input.GetKey(KeyCode.W))
             controller.Move(Vector3.forward * Time.deltaTime * speed);
 
@@ -57,6 +65,7 @@ public class PlayerBehaviour: FireTimer
         if (Input.GetKey(KeyCode.D))
             controller.Move(Vector3.right * Time.deltaTime * speed);
 
+        //Restart the scene
         if (Input.GetKey(KeyCode.R))
         {
             Time.timeScale = 1;
@@ -66,6 +75,8 @@ public class PlayerBehaviour: FireTimer
 
     }
 
+    //Triggers LookAtCursor when frame is even
+    //Prevents a raycast being triggered every frame, thus is a small optimisation
     void CursorFrameCheck()
     {
         if (frame % 2 != 0)
@@ -77,15 +88,18 @@ public class PlayerBehaviour: FireTimer
             frame = 0;
     }
 
-
+    //Make the player turn towards the point the ray hit
     void LookAtCursor()
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+        //if the ray hit something, get it's hit location and look at it
         if (Physics.Raycast(ray, out hit))
         {
             if (hit.collider.gameObject.tag != "Player" && hit.collider.gameObject.tag != "Barrier")
             {
+                //Store the player's rotation so it can be readded back
+                //This prevents the player from looking up or down
                 Quaternion rotStore = transform.rotation;
                 transform.LookAt(hit.point);
                 transform.SetPositionAndRotation(transform.position, new Quaternion(rotStore.x, transform.rotation.y, rotStore.z, transform.rotation.w));
@@ -94,19 +108,23 @@ public class PlayerBehaviour: FireTimer
         }
     }
 
+
+    //Called when the player is hit by a projectile
+    //Updates the health as well as killing the player
     public void TakeDamage(int amount)
     {
 
         currentHealth -= amount;
 
+        //Kill the player
         if (currentHealth <= 0)
         {
-            youLose.SetActive(true);
+            youLoseText.SetActive(true);
             Time.timeScale = 0;
         }
             
 
-        healthNum.text = currentHealth.ToString();
+        healthNumText.text = currentHealth.ToString();
 
     }
 

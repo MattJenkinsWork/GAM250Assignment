@@ -5,20 +5,24 @@ using UnityEngine;
 public class ObjectPoolManager : MonoBehaviour {
 
     public GameObject objectToPool;
-
-    public List<GameObject> inactiveObjects;
-    public List<GameObject> activeObjects;
-
     public int amountToPool = 1000;
 
     public int poolID;
 
+
+    List<GameObject> inactiveObjects;
+    List<GameObject> activeObjects;
+
+   
+
 	// Use this for initialization
 	void Start ()
     {
+        //Setup the pool lists
         inactiveObjects = new List<GameObject>(new GameObject[amountToPool]);
         activeObjects = new List<GameObject>(new GameObject[amountToPool]);
 
+        //Set the pool ID to something else if there are other pools on the same object
         if (!GetComponent<ObjectPoolManager>())
         {
             poolID = 0;
@@ -36,6 +40,7 @@ public class ObjectPoolManager : MonoBehaviour {
             }
         } 
 
+        //Create all of the inactive pool objects
         for (int i = 0; i < inactiveObjects.Count; i++)
         {
             inactiveObjects[i] = Instantiate(objectToPool,transform);
@@ -44,11 +49,13 @@ public class ObjectPoolManager : MonoBehaviour {
 
 	}
 	
+    //Provides an object reference and moves the object to the location parameter
     public GameObject RequestObject(Vector3 location)
     {
         bool success = false;
         GameObject requestedObject;
 
+        //Try to take an object from the pool
         try
         {
             requestedObject = inactiveObjects[0];
@@ -60,6 +67,7 @@ public class ObjectPoolManager : MonoBehaviour {
             throw;
         }
        
+        //If the object is ok, we setup the object and swap it from the inactive list to the active list
         if (success)
         {
             inactiveObjects.Remove(requestedObject);
@@ -75,11 +83,12 @@ public class ObjectPoolManager : MonoBehaviour {
         }
     }
 
+    //Makes the given object inactive and return in to the pool
     public void ReturnObject(GameObject returnedObject)
     {
         bool success = false;
 
-
+        //If the object is in activeObjects flag success
         for (int i = 0; i < activeObjects.Count; i++)
         {
             if (returnedObject == activeObjects[i])
@@ -90,6 +99,7 @@ public class ObjectPoolManager : MonoBehaviour {
                 
         }
 
+        //If returning it is valid, we make it inactive and place it back in the pool as well as swapping the lists
         if (success)
         {
             returnedObject.SetActive(false);
@@ -101,6 +111,8 @@ public class ObjectPoolManager : MonoBehaviour {
 
     }
 
+    //Can be called to check if the given object is the same as the pool prefab
+    //Used to check if the right pool is chosen
 	public bool CheckForCorrectPool(GameObject objectToTest)
     {
         if (objectToTest != objectToPool)
